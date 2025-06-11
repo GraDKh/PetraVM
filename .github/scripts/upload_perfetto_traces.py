@@ -33,7 +33,7 @@ def main():
     pattern = os.path.join(args.results_dir, "**", "*.perfetto-trace")
     for file_path in sorted(glob.glob(pattern, recursive=True)):
         file_name = os.path.basename(file_path)
-        machine = os.path.basename(os.path.dirname(file_path)).removeprefix("results-")
+        machine = os.path.basename(os.path.dirname(file_path)).removeprefix("perfetto-traces-")
         benchmark, mode, _, run_id, _ = file_name.split("-", 4)
         thread  = f"{mode}-thread"
 
