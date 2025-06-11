@@ -1,0 +1,45 @@
+name: Benchmark
+on:
+  pull_request:  # TODO: remove
+  push:
+    branches: [main]
+  workflow_dispatch: # Manual trigger
+    inputs:
+      benchmark:
+        description: "Benchmark to run (choose a specific benchmark or 'all')"
+        type: choice
+        options: [all, fibonacci] # Example options; replace with actual benchmark names
+        default: all
+jobs:
+  #
+  # Run benchmarks
+  #
+  benchmark:
+    name: Run benchmarks (${{ matrix.os }})
+    container: rustlang/rust:nightly
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false # make sure one matrix‐fail doesn’t stop the others
+      matrix:
+        os: [c7a-2xlarge, c8g-2xlarge, supermicro]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history to include all git information in traces
+      - name: Set safe directory
+        # workaround: https://github.com/actions/checkout/issues/2031
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Execute Benchmarks
+        run: |
+          ./scripts/run_benchmark.py \
+          --clean \
+          --output-dir benchmark_results \
+          --benchmark "${{ github.event.inputs.benchmark || 'all' }}"
+      - name: Store Results as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-${{ matrix.os }}
+          path: benchmark_results
