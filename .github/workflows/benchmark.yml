@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false # make sure one matrix‐fail doesn’t stop the others
       matrix:
-        os: [c7a-2xlarge, c8g-2xlarge, supermicro]
+        os: [supermicro]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
