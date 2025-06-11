@@ -38,8 +38,8 @@ jobs:
           --clean \
           --output-dir benchmark_results \
           --benchmark "${{ github.event.inputs.benchmark || 'all' }}"
-      - name: Store Results as Artifact
+      - name: Store Perfetto Traces
         uses: actions/upload-artifact@v4
         with:
-          name: results-${{ matrix.os }}
-          path: benchmark_results
+          name: perfetto-traces-${{ matrix.os }}
+          path: benchmark_results/*.perfetto-trace
