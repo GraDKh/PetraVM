@@ -77,7 +77,7 @@ jobs:
             --perfetto-host  "https://perfetto.irreducible.com" \
             --s3-bucket      "${{ secrets.BENCHMARK_S3_BUCKET }}" \
             --repo           "petravm" \
-            --branch         "${{ github.ref_name }}" \
+            --branch         "${{ github.head_ref || github.ref_name }}" \
             --commit-sha     "${{ github.sha }}" \
             --results-dir    "benchmark_results" \
             --summary-path   "${GITHUB_STEP_SUMMARY}"
