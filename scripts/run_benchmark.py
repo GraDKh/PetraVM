@@ -28,7 +28,7 @@ class BenchmarkConfig:
 # Note: Every benchmark is multi-threaded by default. On top of that it can be run in single-threaded mode.
 #  ┌──── name ───┬────── display ───────┬───────────────────── args ─────────────────────┬─ n_ops ─┬─ single_threaded ─┐
 _RAW_BENCH_ROWS = [
-    ("fibonacci", "fibonacci",          ["fibonacci", "--", "--n"],                           100000,  False),
+  ("fibonacci",  "fibonacci",           ["fibonacci", "--", "--n"],                          100000,   True),
 ]
 
 BENCHMARKS = {

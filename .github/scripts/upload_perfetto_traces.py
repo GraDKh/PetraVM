@@ -54,7 +54,7 @@ def main():
         for benchmark, groups in traces_by_benchmark.items():
             summary.write(f"<details><summary>{benchmark}</summary>\n<ul>\n")
             for label, links in groups.items():
-                summary.write(f"<li>{label} " + ", ".join(links) + "</li>\n")
+                summary.write(f"<li>{label}: " + " ".join(links) + "</li>\n")
             summary.write("</ul>\n</details>\n")
 
 if __name__ == "__main__":
